@@ -10,7 +10,7 @@
     <script>
 
     function initMap() {
-      var myLatLng = {lat: -25.363, lng: 131.044};
+      var myLatLng = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>};
 
       var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 20,
@@ -25,6 +25,8 @@
       }
       </script>
 
+      <br />
+
   <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzMiVuWC1NTMmcgOC7aM5deetWLWDKm7A&callback=initMap">
   </script>
@@ -38,12 +40,15 @@
     <% end %>
   </div>
 
+</div>
+
   <div class="clear"></div>
 <%= simple_form_for @comment, url: place_comments_path(@place) do |f| %>
   <%= f.input :message %>
-  <%= f.input :rating %>
+  <%= f.input :rating, as: :select, collection: Comment::RATINGS %>
   <%= f.submit "Add a Comment", class: 'btn btn-primary' %>
 <% end %>
+
 
 <h1>Comments</h1>
 
@@ -56,6 +61,4 @@
     </blockquote>
   </div>
 <% end %>
-
-</div>
 
