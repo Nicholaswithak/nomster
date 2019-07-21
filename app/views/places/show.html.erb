@@ -79,9 +79,8 @@
 <div class="clear"></div>
 
 <div class="row">
+  <div class="col-12">
   <% @place.comments.each do |comment| %>
-  <div class="col-12 col-sm-12">
-    <div>
       <blockquote>
         <% if comment.humanized_rating.present? %>
           <b><%= comment.humanized_rating %></b> -
@@ -89,7 +88,13 @@
         <%= comment.message %>
         <small><%= comment.user.email %></small>
       </blockquote>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>
+
+<%= simple_form_for @photo, url: place_photos_path(@place) do |f| %>
+  <%= f.input :comments %>
+  <%= f.submit "Add a picture", class: 'btn btn-primary' %>
+<% end %>
 
